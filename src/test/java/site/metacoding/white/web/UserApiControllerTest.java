@@ -123,20 +123,21 @@ public class UserApiControllerTest {
 
     @Test
     public void login_test() throws Exception {
-        // given
+
+        // given 다 void여서 내가 테스트할 데이터를 직접 부여해주는 것이다.
         LoginReqDto loginReqDto = new LoginReqDto();
-        loginReqDto.setUsername("ssar"); // ssar 로 해야함.
+        loginReqDto.setUsername("ssar"); // DB에 있는걸로 해야 함
         loginReqDto.setPassword("1234");
         String body = om.writeValueAsString(loginReqDto);
 
         // 위에서 검증해서 잘 됐으니 얘는 검증할 필요가 없다 무조건 save가 됨!!
 
-        // when
+        // when 내가 하는 행동을 의미한다 위에서 부여한 데이터로 테스트를 한다는 의미다
         ResultActions resultActions = mvc
                 .perform(MockMvcRequestBuilders.post("/login").content(body)
                         .contentType(APPLICATION_JSON).accept(APPLICATION_JSON));
 
-        // then
+        // then 위의 행위가 실행됐을 때 옳은지 틀렸는지 검증하는 것을 의미한다.
         MvcResult mvcResult = resultActions.andReturn();
         System.out.println("디버그 : " + mvcResult.getResponse().getContentAsString());
         resultActions.andExpect(MockMvcResultMatchers.jsonPath("$.code").value(1L));
