@@ -113,7 +113,7 @@ public class BoardApiControllerTest {
 
         // when
         ResultActions resultActions = mvc
-                .perform(post("/board").content(body)
+                .perform(post("/s/board").content(body)
                         .contentType(APPLICATION_JSON).accept(APPLICATION_JSON)
                         .session(session));
 
@@ -168,7 +168,7 @@ public class BoardApiControllerTest {
 
         // when
         ResultActions resultActions = mvc
-                .perform(put("/board/" + id).content(body)
+                .perform(put("/s/board/" + id).content(body)
                         // post안에 , 해서 넣을수있다 -> 쿼리스트림
                         .contentType(APPLICATION_JSON).accept(APPLICATION_JSON) // 둘 중 하나라도 안적으면 안나옴 -> json타입인줄 몰라서
                         .session(session)); // 가짜세션!!
@@ -186,7 +186,7 @@ public class BoardApiControllerTest {
         Long id = 1L;
         // when
         ResultActions resultActions = mvc
-                .perform(delete("/board/" + id)
+                .perform(delete("/s/board/" + id)
                         .accept(APPLICATION_JSON)
                         .session(session));
 
