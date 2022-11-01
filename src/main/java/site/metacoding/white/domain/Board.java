@@ -32,17 +32,20 @@ public class Board {
     private String content;
 
     // FK가 만들어짐. user_id
+
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
     // 조회를 위해서만 필요함
-    @OnDelete(action = OnDeleteAction.CASCADE) // 양방향 매핑시 걸어준다.
+    // CascadeType.ALL를 걸면 Board 객체 save시에 comment를 함께 저장할 수 있다.
+    // 양방향 매핑시 걸어준다.
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToMany(mappedBy = "board", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
     public void addComment(Comment comment) {
         this.comments.add(comment);
-    }// 영속화된
+    }
 
     @Builder
     public Board(Long id, String title, String content, User user) {
@@ -57,4 +60,5 @@ public class Board {
         this.title = title;
         this.content = content;
     }
+
 }

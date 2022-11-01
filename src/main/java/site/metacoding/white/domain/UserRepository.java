@@ -1,5 +1,6 @@
 package site.metacoding.white.domain;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
@@ -23,7 +24,7 @@ public class UserRepository {
         return user;
     }
 
-    public Optional<User> findByUsername(String username) {
+    public Optional<User> findByUsername(String username) { // user를 Optional이란 박스에 담아서 user가 null인지 아닌지 모르니 박스에 담아서 서비스단에서 get을 해서 까서 알 수 있다 => null값 방지
         try {
             Optional<User> userOP = Optional.of(em
                     .createQuery(
@@ -49,6 +50,11 @@ public class UserRepository {
         } catch (Exception e) {
             return Optional.empty();
         }
+    }
+
+    public List<User> findAll() {
+        List<User> userList = em.createQuery("select b from User b", User.class).getResultList();
+        return userList;
     }
 
 }

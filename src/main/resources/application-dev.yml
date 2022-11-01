@@ -24,4 +24,3 @@ logging:
     level:
         "[org.hibernate.SQL]": DEBUG
         "[site.metacoding.white]": DEBUG
-        #root: DEBUG

@@ -27,8 +27,6 @@ import site.metacoding.white.dto.SessionUser;
 import site.metacoding.white.dto.UserReqDto.LoginReqDto;
 import site.metacoding.white.util.SHA256;
 
-// 디스패처서블릿 직전에서 실행되기에 servlet Filter 사용
-
 @Slf4j
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter implements Filter {
@@ -78,12 +76,12 @@ public class JwtAuthenticationFilter implements Filter {
 		Date expire = new Date(System.currentTimeMillis() + (1000 * 60 * 60));
 
 		String jwtToken = JWT.create()
-				.withSubject("메타코딩") // 내 토큰 이름
-				.withExpiresAt(expire) // 유효시간
-				.withClaim("id", userPS.getId()) // Payload 계속 넣으면 됨
-				.withClaim("username", userPS.getUsername()) // Payload 계속 넣으면 됨
-				.sign(Algorithm.HMAC512("뺑소니")); // 어떤 알고리즘 사용했는지
-		log.debug("디버그2: " + jwtToken);
+				.withSubject("메타코딩")
+				.withExpiresAt(expire)
+				.withClaim("id", userPS.getId())
+				.withClaim("username", userPS.getUsername())
+				.sign(Algorithm.HMAC512("뺑소니"));
+		log.debug("디버그 : " + jwtToken);
 
 		// JWT토큰 응답
 		customJwtResponse(jwtToken, userPS, resp);
